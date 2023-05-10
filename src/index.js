@@ -91,7 +91,7 @@ function onFetchError(error) {
   countryList.innerHTML = '';
   cornetCountryInfo.innerHTML = '';
   if (error.message === '404') {
-    Notify.failure('Помилка');
+    Notify.failure('Помилка.');
   }
   console.log(error);
 }
