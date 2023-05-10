@@ -16,6 +16,7 @@ const IMAGE_PER_PAGE = 40;
 let searchName;
 let page = 1;
 let totalPage;
+let test = 'deploy'
 
 formEl.addEventListener('submit', onSubmit);
 
