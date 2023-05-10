@@ -1,0 +1,12 @@
+.header{
+   
+  box-shadow: 0px 3px 10px 3px #0000007d;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    height: 68px;
+    background-color: #065d86;
+justify-content: center;
+    align-items: center;
+}
