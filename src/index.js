@@ -55,7 +55,7 @@ async function onLoadMoreClick() {
 
   if (page > totalPage) {
     loadMoreEl.classList.remove('load-more-show');
-    Notify.info("We're sorry, but you've reached the end of search results.");
+    Notify.info('Вибачте, але ви досягли кінця результатів пошуку.');
   }
 
   await searchImg(searchName, IMAGE_PER_PAGE, page)
