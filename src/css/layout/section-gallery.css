@@ -54,6 +54,14 @@
   align-items: center;
 }
 
+.scroll-guard{
+display: none;
+}
+
+.scroll-guard-show{
+display: block;
+}
+
 .load-more {
   display: none;
 }

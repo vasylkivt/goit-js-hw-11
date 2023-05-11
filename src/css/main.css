@@ -4,6 +4,8 @@
 @import './base/common.css';
 
 @import './components/container.css';
+@import './components/btn-load-more.css';
+
 @import './layout/header.css';
 
 
