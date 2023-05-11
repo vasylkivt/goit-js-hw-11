@@ -11,6 +11,7 @@
     <header class="header">
       <form class="search-form" id="search-form">
         <input
+          value="dog and duck"
           type="text"
           name="searchQuery"
           autocomplete="off"
@@ -18,12 +19,16 @@
         />
         <button type="submit">Search</button>
       </form>
-      <button>Нескінченний скрол</button>
+      <label
+        >Infinite Scroll
+        <input class="infinite-scroll" type="checkbox" />
+      </label>
     </header>
     <main>
       <section class="section-gallery">
         <div class="container">
           <ul class="gallery-list" id="gallery-list"></ul>
+          <div class="scroll-guard"></div>
           <button type="button" class="load-more">Load more</button>
         </div>
       </section>
