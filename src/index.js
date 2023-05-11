@@ -1,9 +1,12 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
 import { makeGalleryMarkup } from './js/makeGalleryMarkup';
 import { fetchImages } from './js/fetchImages';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from 'simplelightbox';
+
+import 'modern-normalize/modern-normalize.css';
+// import 'pretty-checkbox/src/pretty-checkbox.scss';
+import 'pretty-checkbox/dist/pretty-checkbox.min.css';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallerySLBox = new SimpleLightbox('.gallery-list a');
 
@@ -11,7 +14,7 @@ const formEl = document.getElementById('search-form');
 const galleryEl = document.getElementById('gallery-list');
 const loadMoreEl = document.querySelector('.load-more');
 const scrollGuardEl = document.querySelector('.scroll-guard');
-const infiniteScrollEl = document.querySelector('.infinite-scroll');
+const infiniteScrollEl = document.querySelector('.infinite-scroll-input');
 
 const IMAGE_PER_PAGE = 40;
 let searchName;
@@ -77,15 +80,17 @@ function addButtonLoadMore() {
 
 async function onLoadMoreClick() {
   page += 1;
-  if (page > totalPage) {
-    loadMoreEl.classList.remove('load-more-show');
-  }
+
   try {
     const { data } = await fetchImages(searchName, IMAGE_PER_PAGE, page);
 
     await onFetchSuccess(data);
     await smoothScroll();
     await gallerySLBox.refresh();
+
+    if (page > totalPage) {
+      await loadMoreEl.classList.remove('load-more-show');
+    }
   } catch (error) {
     onFetchError(error);
   }
@@ -126,11 +131,16 @@ function addIntersectionObserver() {
   const observer1 = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        if (page > totalPage) {
-          Notify.info('Вибачте, але ви досягли кінця результатів пошуку.');
-        }
+        
         if (infiniteScrollEl.checked) {
           loadMoreWithScroll();
+        }
+        if (!infiniteScrollEl.checked) {
+          loadMoreEl.classList.add('load-more-show');
+        }
+        if (page > totalPage) {
+          loadMoreEl.classList.remove('load-more-show');
+          Notify.info('Вибачте, але ви досягли кінця результатів пошуку.');
         }
       }
     });

@@ -10,19 +10,21 @@
   <body>
     <header class="header">
       <form class="search-form" id="search-form">
-        <input
+        <input class="search-form-input"
           value="dog and duck"
           type="text"
           name="searchQuery"
           autocomplete="off"
           placeholder="Search images..."
         />
-        <button type="submit">Search</button>
+        <button class="search-form-btn" type="submit">Search</button>
       </form>
-      <label
-        >Infinite Scroll
-        <input class="infinite-scroll" type="checkbox" />
-      </label>
+      <div class="infinite-scroll pretty p-switch p-fill">
+        <input class="infinite-scroll-input" type="checkbox" />
+        <div class="state p-success">
+          <label>Infinite Scroll</label>
+        </div>
+      </div>
     </header>
     <main>
       <section class="section-gallery">

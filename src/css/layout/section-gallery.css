@@ -66,5 +66,10 @@ display: block;
   display: none;
 }
 .load-more-show {
+  border: none;
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  margin: 30px auto;
   display: block;
 }
