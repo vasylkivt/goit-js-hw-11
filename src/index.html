@@ -19,22 +19,34 @@
         />
         <button class="search-form-btn" type="submit">Search</button>
       </form>
-      <div class="infinite-scroll pretty p-switch p-fill">
-        <input class="infinite-scroll-input" type="checkbox" />
-        <div class="state p-success">
-          <label>Infinite Scroll</label>
-        </div>
-      </div>
+
+
+
+		<label class="toggle infinite-scroll" for="uniqueID">
+			<input  type="checkbox" class="infinite-scroll-input toggle__input" id="uniqueID" />
+			<span class="toggle-track">
+				<span class="toggle-indicator">
+				</span>
+			</span>
+			Infinite Scroll
+		</label>
+
+
     </header>
     <main>
       <section class="section-gallery">
         <div class="container">
           <ul class="gallery-list" id="gallery-list"></ul>
-          <div class="scroll-guard"></div>
+          <div class="object-for-observation"></div>
           <button type="button" class="load-more">Load more</button>
         </div>
       </section>
     </main>
+
+    <div class="backdrop-loader">
+      <div class="lds-dual-ring"></div>
+    </div>
+
     <script src="./index.js" type="module"></script>
   </body>
 </html>

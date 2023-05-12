@@ -4,7 +4,8 @@
 @import './base/common.css';
 
 @import './components/container.css';
-@import './components/btn-load-more.css';
+@import './components/toggle-switch.css';
+@import './components/loader.css';
 
 @import './layout/header.css';
 

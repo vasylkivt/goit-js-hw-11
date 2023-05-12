@@ -54,22 +54,26 @@
   align-items: center;
 }
 
-.scroll-guard{
-display: none;
+.object-for-observation {
+  display: none;
 }
 
-.scroll-guard-show{
-display: block;
+.object-for-observation-show {
+  display: block;
 }
 
 .load-more {
   display: none;
 }
 .load-more-show {
-  border: none;
+  display: block;
   width: 200px;
   height: 40px;
-  border-radius: 20px;
   margin: 30px auto;
-  display: block;
+  border: none;
+  border-radius: 20px;
+}
+
+.notiflix-confirm-head h5 {
+  display: none;
 }
