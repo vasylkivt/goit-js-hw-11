@@ -1,0 +1,48 @@
+.toggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggle__input {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+}
+
+.toggle-track {
+  position: relative;
+  display: flex;
+  width: 60px;
+  height: 30px;
+  margin-right: 12px;
+  border: 2px solid #bdc3c7;
+  border-radius: 15px;
+  background: transparent;
+  cursor: pointer;
+
+  transition: background-color 300ms ease-in-out;
+}
+
+.toggle-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: #b10000;
+  transition: 300ms;
+}
+
+.toggle__input:checked + .toggle-track .toggle-indicator {
+  background: #bdc3c7;
+  transform: translateX(30px);
+}
+
+.toggle__input:checked + .toggle-track {
+  background: #00ba10;
+}
