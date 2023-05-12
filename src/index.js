@@ -21,18 +21,13 @@ let searchName;
 let page;
 let totalPage;
 
-
-
 formEl.addEventListener('submit', onSubmit);
+
+addIntersectionObserver();
 
 async function onSubmit(e) {
   e.preventDefault();
-  addIntersectionObserver();
-
-  galleryEl.innerHTML = '';
-  page = 1;
   searchName = e.currentTarget.elements.searchQuery.value;
-
   if (!searchName.trim()) {
     await new Promise(resolve => {
       Confirm.show(
@@ -54,7 +49,9 @@ async function onSubmit(e) {
     });
   }
 
-  await beforeSearch();
+  afterClickSubmit();
+  beforeSearch();
+
   try {
     const { data } = await fetchImages(searchName, IMAGE_PER_PAGE, page);
 
@@ -70,44 +67,29 @@ async function onSubmit(e) {
     }
 
     if (data.hits.length) {
-      await objectForObservation.classList.add('object-for-observation-show');
+      objectForObservation.classList.add('object-for-observation-show');
     }
 
-    await onFetchSuccess(data);
+    onFetchSuccess(data);
   } catch (error) {
     console.log(error);
     Notify.failure(
       `На жаль, щось пішло не так. Будь ласка, спробуйте ще раз. ${error.message}, ${error.code}`
     );
     resetToDefault();
-    
   }
-  {
-  }
+}
+
+function afterClickSubmit() {
+  totalPage = 0;
+  galleryEl.innerHTML = '';
+  page = 1;
 }
 
 function beforeSearch() {
+  resetToDefault();
   backdropLoaderEl.classList.add('backdrop-loader-show');
   document.body.style.overflow = 'hidden';
-}
-
-async function onFetchSuccess({ hits }) {
-  if (hits.length === 0) {
-    Notify.failure(
-      'На жаль, немає зображень, що відповідають вашому запиту. Будь ласка, спробуйте ще раз.'
-    );
-    resetToDefault();
-
-    return;
-  }
-  await galleryEl.insertAdjacentHTML('beforeend', makeGalleryMarkup(hits));
-
-  await gallerySLBox.refresh();
-
-  setTimeout(() => {
-    backdropLoaderEl.classList.remove('backdrop-loader-show');
-    document.body.style.overflow = 'auto';
-  }, 500);
 }
 
 function resetToDefault() {
@@ -117,19 +99,40 @@ function resetToDefault() {
   document.body.style.overflow = 'auto';
 }
 
+function onFetchSuccess({ hits }) {
+  if (hits.length === 0) {
+    Notify.failure(
+      'На жаль, немає зображень, що відповідають вашому запиту. Будь ласка, спробуйте ще раз.'
+    );
+    resetToDefault();
+    return;
+  }
+  galleryEl.insertAdjacentHTML('beforeend', makeGalleryMarkup(hits));
+  gallerySLBox.refresh();
+  setTimeout(() => {
+    backdropLoaderEl.classList.remove('backdrop-loader-show');
+    document.body.style.overflow = 'auto';
+  }, 500);
+}
+
 async function loadMoreImage() {
   beforeSearch();
+
   if (page > totalPage) {
     return;
   }
+
   page += 1;
+
   try {
     const { data } = await fetchImages(searchName, IMAGE_PER_PAGE, page);
-    await onFetchSuccess(data);
-    await smoothScroll();
+    onFetchSuccess(data);
+    smoothScroll();
   } catch (error) {
     console.log(error);
-    Notify.failure('На жаль, щось пішло не так. Будь ласка, спробуйте ще раз.');
+    Notify.failure(
+      `На жаль, щось пішло не так. Будь ласка, спробуйте ще раз.${error.message}, ${error.code}`
+    );
     resetToDefault();
   }
 }
