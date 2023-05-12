@@ -89,14 +89,14 @@ function afterClickSubmit() {
 function beforeSearch() {
   resetToDefault();
   backdropLoaderEl.classList.add('backdrop-loader-show');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('body-overflow-hidden');
 }
 
 function resetToDefault() {
   loadMoreEl.classList.remove('load-more-show');
   objectForObservation.classList.remove('scroll-guard-show');
   backdropLoaderEl.classList.remove('backdrop-loader-show');
-  document.body.style.overflow = 'auto';
+  document.body.classList.remove('body-overflow-hidden');
 }
 
 function onFetchSuccess({ hits }) {
@@ -111,7 +111,7 @@ function onFetchSuccess({ hits }) {
   gallerySLBox.refresh();
   setTimeout(() => {
     backdropLoaderEl.classList.remove('backdrop-loader-show');
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('body-overflow-hidden');
   }, 500);
 }
 

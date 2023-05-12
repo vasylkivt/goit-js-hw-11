@@ -1,3 +1,7 @@
+.body-overflow-hidden {
+  overflow: hidden;
+}
+
 .section-gallery {
   margin-top: 98px;
 }
