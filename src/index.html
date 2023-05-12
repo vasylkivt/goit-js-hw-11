@@ -11,7 +11,6 @@
     <header class="header">
       <form class="search-form" id="search-form">
         <input
-        value="dog and duck"
           class="search-form-input"
           type="text"
           name="searchQuery"
@@ -21,29 +20,27 @@
         <button class="search-form-btn" type="submit">Search</button>
       </form>
 
-
-
-		<label class="toggle infinite-scroll" for="uniqueID">
-			<input  type="checkbox" class="infinite-scroll-input toggle__input" id="uniqueID" />
-			<span class="toggle-track">
-				<span class="toggle-indicator">
-				</span>
-			</span>
-			Infinite Scroll
-		</label>
-
-
+      <label class="toggle infinite-scroll" for="uniqueID">
+        <input
+          type="checkbox"
+          class="infinite-scroll-input toggle__input"
+          id="uniqueID"
+        />
+        <span class="toggle-track">
+          <span class="toggle-indicator"> </span>
+        </span>
+        Infinite Scroll
+      </label>
     </header>
     <main>
       <section class="section-gallery">
         <div class="container">
           <ul class="gallery-list" id="gallery-list"></ul>
-          
           <button type="button" class="load-more">Load more</button>
         </div>
       </section>
     </main>
-<div class="object-for-observation"></div>
+    <div class="object-for-observation"></div>
     <div class="backdrop-loader">
       <div class="lds-dual-ring"></div>
     </div>
