@@ -16,7 +16,7 @@ const objectForObservation = document.querySelector('.object-for-observation');
 const infiniteScrollEl = document.querySelector('.infinite-scroll-input');
 const backdropLoaderEl = document.querySelector('.backdrop-loader');
 
-const IMAGE_PER_PAGE = 40;
+const IMAGE_PER_PAGE = 30;
 let searchName;
 let page;
 let totalPage;
@@ -67,15 +67,22 @@ async function onSubmit(e) {
       Notify.info(`Вам доступно ${data.totalHits} результатів пошуку.`);
     }
 
-    await objectForObservation.classList.add('object-for-observation-show');
+    if (data.hits.length) {
+      await objectForObservation.classList.add('object-for-observation-show');
+    }
 
     await onFetchSuccess(data);
   } catch (error) {
-    Notify.failure(error.message);
+    console.log(error);
+    Notify.failure(
+      `На жаль, щось пішло не так. Будь ласка, спробуйте ще раз. ${error.message}, ${error.code}`
+    );
     resetToDefault();
+    
+  }
+  {
   }
 }
-
 function beforeSearch() {
   backdropLoaderEl.classList.add('backdrop-loader-show');
   document.body.style.overflow = 'hidden';
@@ -86,7 +93,7 @@ async function onFetchSuccess({ hits }) {
     Notify.failure(
       'На жаль, немає зображень, що відповідають вашому запиту. Будь ласка, спробуйте ще раз.'
     );
-    await resetToDefault();
+    resetToDefault();
 
     return;
   }
@@ -118,13 +125,15 @@ async function loadMoreImage() {
     await onFetchSuccess(data);
     await smoothScroll();
   } catch (error) {
-    resetToDefault(error);
+    console.log(error);
+    Notify.failure('На жаль, щось пішло не так. Будь ласка, спробуйте ще раз.');
+    resetToDefault();
   }
 }
 
 function addIntersectionObserver() {
   const options = {
-    rootMargin: '5px',
+    rootMargin: '100px',
     threshold: 1.0,
   };
   const observer1 = new IntersectionObserver(entries => {
@@ -132,13 +141,11 @@ function addIntersectionObserver() {
       if (entry.isIntersecting) {
         if (infiniteScrollEl.checked && page < totalPage) {
           loadMoreImage();
-        }
-        if (!infiniteScrollEl.checked) {
+        } else if (!infiniteScrollEl.checked && page < totalPage) {
           loadMoreEl.classList.add('load-more-show');
           loadMoreEl.addEventListener('click', loadMoreImage);
-        }
-        if (page > totalPage) {
-          loadMoreEl.classList.remove('load-more-show');
+        } else {
+          resetToDefault();
           Notify.info('Вибачте, але ви досягли кінця результатів пошуку.');
         }
       }
