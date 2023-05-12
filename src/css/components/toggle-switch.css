@@ -31,11 +31,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 23px;
-  height: 23px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #b10000;
+  background: #a93b3b;
   transition: 300ms;
+}
+
+.toggle__input {
+  outline: none;
+}
+.toggle__input:focus + .toggle-track {
+  outline: -webkit-focus-ring-color auto 1px;
 }
 
 .toggle__input:checked + .toggle-track .toggle-indicator {
@@ -44,5 +51,5 @@
 }
 
 .toggle__input:checked + .toggle-track {
-  background: #00ba10;
+  background: #38bb43;
 }
