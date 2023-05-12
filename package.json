@@ -21,7 +21,6 @@
     "axios": "^1.4.0",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6",
-    "pretty-checkbox": "^3.0.3",
     "simplelightbox": "^2.14.0"
   },
   "devDependencies": {

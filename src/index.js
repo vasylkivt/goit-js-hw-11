@@ -5,7 +5,6 @@ import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import SimpleLightbox from 'simplelightbox';
 
 import 'modern-normalize/modern-normalize.css';
-import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallerySLBox = new SimpleLightbox('.gallery-list a');
