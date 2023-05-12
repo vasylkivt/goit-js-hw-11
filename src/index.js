@@ -16,17 +16,19 @@ const objectForObservation = document.querySelector('.object-for-observation');
 const infiniteScrollEl = document.querySelector('.infinite-scroll-input');
 const backdropLoaderEl = document.querySelector('.backdrop-loader');
 
-const IMAGE_PER_PAGE = 30;
+const IMAGE_PER_PAGE = 40;
 let searchName;
 let page;
 let totalPage;
 
-addIntersectionObserver();
+
 
 formEl.addEventListener('submit', onSubmit);
 
 async function onSubmit(e) {
   e.preventDefault();
+  addIntersectionObserver();
+
   galleryEl.innerHTML = '';
   page = 1;
   searchName = e.currentTarget.elements.searchQuery.value;
@@ -83,6 +85,7 @@ async function onSubmit(e) {
   {
   }
 }
+
 function beforeSearch() {
   backdropLoaderEl.classList.add('backdrop-loader-show');
   document.body.style.overflow = 'hidden';
