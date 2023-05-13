@@ -51,19 +51,21 @@ async function onSubmit(e) {
 
   afterClickSubmit();
   beforeSearch();
+  resetToDefault();
 
   try {
+    objectForObservation.classList.remove('scroll-guard-show');
     const { data } = await fetchImages(searchName, IMAGE_PER_PAGE, page);
-
-    if (data.totalHits) {
-      Notify.success(`Ура! Ми знайшли ${data.total} картинок.`);
-      totalPage = data.totalHits / IMAGE_PER_PAGE;
-    }
+    totalPage = data.totalHits / IMAGE_PER_PAGE;
 
     if (data.totalHits === data.total && data.total) {
-      Notify.success(`Вам доступні всі результати пошуку.`);
+      Notify.success(
+        `Ура! Ми знайшли ${data.total} картинок. Вам доступні всі результати пошуку.`
+      );
     } else if (data.totalHits) {
-      Notify.info(`Вам доступно ${data.totalHits} результатів пошуку.`);
+      Notify.success(
+        `Ура! Ми знайшли ${data.total} картинок. Вам доступно ${data.totalHits} результатів пошуку.`
+      );
     }
 
     if (data.hits.length) {
@@ -87,14 +89,12 @@ function afterClickSubmit() {
 }
 
 function beforeSearch() {
-  resetToDefault();
   backdropLoaderEl.classList.add('backdrop-loader-show');
   document.body.classList.add('body-overflow-hidden');
 }
 
 function resetToDefault() {
   loadMoreEl.classList.remove('load-more-show');
-  objectForObservation.classList.remove('scroll-guard-show');
   backdropLoaderEl.classList.remove('backdrop-loader-show');
   document.body.classList.remove('body-overflow-hidden');
 }
@@ -150,7 +150,7 @@ function addIntersectionObserver() {
         } else if (!infiniteScrollEl.checked && page < totalPage) {
           loadMoreEl.classList.add('load-more-show');
           loadMoreEl.addEventListener('click', loadMoreImage);
-        } else {
+        } else if (totalPage) {
           resetToDefault();
           Notify.info('Вибачте, але ви досягли кінця результатів пошуку.');
         }
