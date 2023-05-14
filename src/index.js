@@ -1,7 +1,10 @@
 import { makeGalleryMarkup } from './js/makeGalleryMarkup';
 import { fetchImages } from './js/fetchImages';
+import { smoothScroll } from './js/smoothScroll';
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+
 import SimpleLightbox from 'simplelightbox';
 
 import 'modern-normalize/modern-normalize.css';
@@ -127,7 +130,7 @@ async function loadMoreImage() {
   try {
     const { data } = await fetchImages(searchName, IMAGE_PER_PAGE, page);
     onFetchSuccess(data);
-    smoothScroll();
+    smoothScroll(galleryEl.firstElementChild);
   } catch (error) {
     console.log(error);
     Notify.failure(
@@ -159,14 +162,4 @@ function addIntersectionObserver() {
   }, options);
 
   observer1.observe(document.querySelector('.object-for-observation'));
-}
-
-function smoothScroll() {
-  const { height: cardHeight } =
-    galleryEl.firstElementChild.getBoundingClientRect();
-
-  window.scrollBy({
-    top: cardHeight * 1.9,
-    behavior: 'smooth',
-  });
 }
