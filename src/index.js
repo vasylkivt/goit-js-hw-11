@@ -52,9 +52,9 @@ async function onSubmit(e) {
     });
   }
 
+  resetToDefault();
   afterClickSubmit();
   beforeSearch();
-  resetToDefault();
 
   try {
     objectForObservation.classList.remove('scroll-guard-show');
